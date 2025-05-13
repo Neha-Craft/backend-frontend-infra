@@ -1,9 +1,11 @@
+from aws_cdk import RemovalPolicy
 from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_ecs_patterns as ecs_patterns,
     aws_elasticloadbalancingv2 as elbv2,
     aws_iam as iam,
+    aws_logs as logs,  # Added this import
     Stack,
     Duration,
     Size  
@@ -136,7 +138,7 @@ class ECSConstruct(Construct):
 
         # Add container to task definition
         container = task_definition.add_container(
-            "PrimumaiAuthAiContainer",  
+            "PrimumaiAuthAiContainer",
             image=ecs.ContainerImage.from_registry("148761648660.dkr.ecr.eu-west-1.amazonaws.com/primumai_ai_auth_service"),
             memory_limit_mib=3072,
             port_mappings=[ecs.PortMapping(
@@ -158,7 +160,19 @@ class ECSConstruct(Construct):
                 "AWS_KEYSTRING": "RdsConstructDBCredentialsSe-HuvS1juo8rDK",
                 "APP_ENV": "production",
                 "VALKEY_URL": "clustercfg.valkey-cache.hlr47x.memorydb.eu-west-1.amazonaws.com:6379"
-            }
+            },
+            logging=ecs.LogDriver.aws_logs(
+                stream_prefix="ecs",
+                log_group=logs.LogGroup(
+                    self,
+                    "PrimumaAiAuthServiceTaskLogGroup",
+                    log_group_name="/ecs/PrimumaAiAuthServiceTask",
+                    retention=logs.RetentionDays.ONE_MONTH,
+                    removal_policy=RemovalPolicy.DESTROY
+                ),
+                mode=ecs.AwsLogDriverMode.NON_BLOCKING,
+                max_buffer_size=Size.mebibytes(25)
+            )
         )
 
 

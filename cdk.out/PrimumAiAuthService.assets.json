@@ -1,7 +1,7 @@
 {
   "version": "40.0.0",
   "files": {
-    "bdf60719841be8c59b3d39c8f85a9f6063d2f1d7e68c5199598ca39cd5441ef4": {
+    "2e4ad586fa23cf19be6a9b4be8547c761bfc8eb28cad7b3f4a7dc14bdfb759f5": {
       "source": {
         "path": "PrimumAiAuthService.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "148761648660-eu-west-1": {
           "bucketName": "cdk-hnb659fds-assets-148761648660-eu-west-1",
-          "objectKey": "bdf60719841be8c59b3d39c8f85a9f6063d2f1d7e68c5199598ca39cd5441ef4.json",
+          "objectKey": "2e4ad586fa23cf19be6a9b4be8547c761bfc8eb28cad7b3f4a7dc14bdfb759f5.json",
           "region": "eu-west-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::148761648660:role/cdk-hnb659fds-file-publishing-role-148761648660-eu-west-1"
         }

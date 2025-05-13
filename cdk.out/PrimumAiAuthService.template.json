@@ -84,6 +84,36 @@
     "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup5/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
    }
   },
+  "ECSConstructTaskExecutionRolePolicyEDC540B9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ECSConstructTaskExecutionRolePolicyEDC540B9",
+    "Roles": [
+     "PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/TaskExecutionRole/Policy/Resource"
+   }
+  },
   "ECSConstructPrimumaiAiAuthCluster06A1DA89": {
    "Type": "AWS::ECS::Cluster",
    "Properties": {
@@ -172,6 +202,18 @@
       ],
       "Essential": true,
       "Image": "148761648660.dkr.ecr.eu-west-1.amazonaws.com/primumai_ai_auth_service",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2"
+        },
+        "awslogs-stream-prefix": "ecs",
+        "awslogs-region": "eu-west-1",
+        "mode": "non-blocking",
+        "max-buffer-size": "26214400b"
+       }
+      },
       "Memory": 3072,
       "Name": "PrimumaiAuthAiContainer",
       "PortMappings": [
@@ -196,6 +238,18 @@
    },
    "Metadata": {
     "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthTask/Resource"
+   }
+  },
+  "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/PrimumaAiAuthServiceTask",
+    "RetentionInDays": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthServiceTaskLogGroup/Resource"
    }
   },
   "ECSConstructPrimumaiAuthALBD4D78E56": {
@@ -324,7 +378,8 @@
     }
    },
    "DependsOn": [
-    "ECSConstructPrimumaiAuthALBListener68870969"
+    "ECSConstructPrimumaiAuthALBListener68870969",
+    "ECSConstructTaskExecutionRolePolicyEDC540B9"
    ],
    "Metadata": {
     "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthService/Service"
@@ -333,7 +388,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQTU+DQBD9Lb0va6AevFaMxsRDU3o302XAKesumRloCOG/m0I1qKd58z4yL5PZ9OHephu4SOLKJvF0smOh4BpzQIkdOzRwkfcRXWbzKhToOiYdXjh27WuoGUUMOrFj7jtRZJNX4T/MoQVHOuw59lQi70SiI1CKQcwzcA2KR5DmCSsKdKWv4b9MDAoUkFfcLVsg9+TQzA1nOBn0IErORyhP4CE4CnWf2XHXtp7cfPstQvk4a0vbX/vaR6IYbp5vvNKPwDXq/JOl9886TZPZD/oRw93Wplubbs5ClHAXlD7RHpb5BRYyFDiGAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WPQW+DMAyFf0vvaSboDrt2TJsm9YBK75NrDPNIExQHKhTx3yegndh28uf3bOm9VCdPjzrZwFW2WDZbw2cdiwDYqCOJ6zySgqt8RMJUZ5UtCDvPYXjzrmvfbe1JRDFcdMydYRxUVtmFRkUoOmamk0B+0v9jBi0ghyH3rueS/F7EIUNgZ0W9gq8h0AmkeaGKLU/y9PxXcTYAW/Ir7fZbkO8ZSc3BZxyVcbXoeHD1XGGy7jwqMiCB0Tgoz2DAItu6T3Xct61hnHMdHJTPs7c0+bWv71gC2dvNnVf+CXxN4SfDah3HUeVD+HT2YaeTnU42X8K89Z0NfCF9XOY36O+ce7kBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "PrimumAiAuthService/CDKMetadata/Default"

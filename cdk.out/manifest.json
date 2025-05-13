@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::148761648660:role/cdk-hnb659fds-deploy-role-148761648660-eu-west-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::148761648660:role/cdk-hnb659fds-cfn-exec-role-148761648660-eu-west-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-148761648660-eu-west-1/bdf60719841be8c59b3d39c8f85a9f6063d2f1d7e68c5199598ca39cd5441ef4.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-148761648660-eu-west-1/2e4ad586fa23cf19be6a9b4be8547c761bfc8eb28cad7b3f4a7dc14bdfb759f5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,16 +39,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-03ba29a1f6c9783c8'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -58,16 +58,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-014ae1a5e93d7aeb6'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -77,16 +77,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-04b7aeaa5a76811a0'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -96,16 +96,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-033dac9b4c4e65d30'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -146,6 +146,12 @@
             "data": "ECSConstructSecurityGroup5fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D21809BD333F2"
           }
         ],
+        "/PrimumAiAuthService/ECSConstruct/TaskExecutionRole/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSConstructTaskExecutionRolePolicyEDC540B9"
+          }
+        ],
         "/PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -169,20 +175,26 @@
             "type": "aws:cdk:warning",
             "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "RepositoryImage.bind (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
-              "new ContainerDefinition (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
-              "FargateTaskDefinition.addContainer (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
-              "descriptor.value (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:294:172",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.invoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:294:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:294:172",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.invoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:294:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
+          }
+        ],
+        "/PrimumAiAuthService/ECSConstruct/PrimumaAiAuthServiceTaskLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2"
           }
         ],
         "/PrimumAiAuthService/ECSConstruct/ALBPublicSubnet": [
@@ -190,16 +202,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-03ba29a1f6c9783c8'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -209,16 +221,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-033dac9b4c4e65d30'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -246,16 +258,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-03ba29a1f6c9783c8'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -265,16 +277,16 @@
             "type": "aws:cdk:warning",
             "data": "No routeTableId was provided to the subnet 'subnet-033dac9b4c4e65d30'. Attempting to read its .routeTable.routeTableId will return null/undefined. (More info: https://github.com/aws/aws-cdk/pull/3171) [ack: @aws-cdk/aws-ec2:noSubnetRouteTableId]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
-              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
-              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:152",
-              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:920:24)",
-              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:315:102)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new ImportedSubnet (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:36582)",
+              "Subnet.fromSubnetAttributes (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:23390)",
+              "C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:152",
+              "Kernel._Kernel_ensureSync (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:920:24)",
+              "Kernel.sinvoke (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:315:102)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }
@@ -284,15 +296,15 @@
             "type": "aws:cdk:warning",
             "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
             "trace": [
-              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new BaseService (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
-              "new FargateService (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-QeEffs\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
-              "Kernel._Kernel_create (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:548:25)",
-              "Kernel.create (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:218:93)",
-              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15471:36)",
-              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15431:22)",
-              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpyyekxfpy\\lib\\program.js:15432:46)",
+              "Annotations.addMessage (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\ASUS\\AppData\\Local\\Temp\\jsii-kernel-cAfyxo\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:548:25)",
+              "Kernel.create (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:218:93)",
+              "KernelHost.processRequest (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15471:36)",
+              "KernelHost.run (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15431:22)",
+              "Immediate._onImmediate (C:\\Users\\ASUS\\AppData\\Local\\Temp\\tmpu4pp7h4g\\lib\\program.js:15432:46)",
               "process.processImmediate (node:internal/timers:491:21)"
             ]
           }

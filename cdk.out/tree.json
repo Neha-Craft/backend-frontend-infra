@@ -303,6 +303,54 @@
               "TaskExecutionRole": {
                 "id": "TaskExecutionRole",
                 "path": "PrimumAiAuthService/ECSConstruct/TaskExecutionRole",
+                "children": {
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "PrimumAiAuthService/ECSConstruct/TaskExecutionRole/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "PrimumAiAuthService/ECSConstruct/TaskExecutionRole/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "ECSConstructTaskExecutionRolePolicyEDC540B9",
+                            "roles": [
+                              "PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc"
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.184.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  }
+                },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Resource",
                   "version": "2.184.1",
@@ -385,6 +433,18 @@
                                 "name": "ai-authaicontainer-80-tcp"
                               }
                             ],
+                            "logConfiguration": {
+                              "logDriver": "awslogs",
+                              "options": {
+                                "awslogs-group": {
+                                  "Ref": "ECSConstructPrimumaAiAuthServiceTaskLogGroupE9A5E8B2"
+                                },
+                                "awslogs-stream-prefix": "ecs",
+                                "awslogs-region": "eu-west-1",
+                                "mode": "non-blocking",
+                                "max-buffer-size": "26214400b"
+                              }
+                            },
                             "environment": [
                               {
                                 "name": "JWT_SECRET_OTP",
@@ -464,6 +524,32 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaAiAuthServiceTaskLogGroup": {
+                "id": "PrimumaAiAuthServiceTaskLogGroup",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthServiceTaskLogGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthServiceTaskLogGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "logGroupName": "/ecs/PrimumaAiAuthServiceTask",
+                        "retentionInDays": 30
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogGroup",
                   "version": "2.184.1",
                   "metadata": []
                 }
