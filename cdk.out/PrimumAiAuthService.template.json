@@ -1,0 +1,377 @@
+{
+ "Resources": {
+  "ECSConstructSecurityGroup1from000008051A4592E": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "CidrIp": "0.0.0.0/0",
+    "Description": "Allow from anyone on port 80",
+    "FromPort": 80,
+    "GroupId": "sg-0dc8f9498ea364d11",
+    "IpProtocol": "tcp",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup1/from 0.0.0.0_0:80"
+   }
+  },
+  "ECSConstructSecurityGroup1fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D21801A0C38F3": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": "sg-0dc8f9498ea364d11",
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup1/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
+   }
+  },
+  "ECSConstructSecurityGroup2fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D21804B46A20A": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": "sg-06982dd85d3af4984",
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup2/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
+   }
+  },
+  "ECSConstructSecurityGroup3fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D2180256EE030": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": "sg-07c3ae76cdbf0e95e",
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup3/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
+   }
+  },
+  "ECSConstructSecurityGroup4fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D2180D69FB0C1": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": "sg-0c95d97d4c25beec0",
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup4/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
+   }
+  },
+  "ECSConstructSecurityGroup5fromPrimumAiAuthServiceECSConstructSecurityGroup19A669D21809BD333F2": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 80,
+    "GroupId": "sg-05c82157d13f08fc0",
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+    "ToPort": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/SecurityGroup5/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80"
+   }
+  },
+  "ECSConstructPrimumaiAiAuthCluster06A1DA89": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "primumaiAiAuth",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "disabled"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster/Resource"
+   }
+  },
+  "ECSConstructPrimumaiAiAuthCluster2B20BC94": {
+   "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+   "Properties": {
+    "CapacityProviders": [
+     "FARGATE",
+     "FARGATE_SPOT"
+    ],
+    "Cluster": {
+     "Ref": "ECSConstructPrimumaiAiAuthCluster06A1DA89"
+    },
+    "DefaultCapacityProviderStrategy": []
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster/PrimumaiAiAuthCluster"
+   }
+  },
+  "ECSConstructPrimumaAiAuthTask86A1B283": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "JWT_SECRET_OTP",
+        "Value": "otpSecret123"
+       },
+       {
+        "Name": "JWT_SECRET_WELCOME",
+        "Value": "welcomeSecret123"
+       },
+       {
+        "Name": "JWT_SECRET_SESSION",
+        "Value": "sessionSecret123"
+       },
+       {
+        "Name": "DB_HOST",
+        "Value": "localhost"
+       },
+       {
+        "Name": "DB_USER",
+        "Value": "root"
+       },
+       {
+        "Name": "DB_PASS",
+        "Value": ""
+       },
+       {
+        "Name": "DB_NAME",
+        "Value": "auth_microservice"
+       },
+       {
+        "Name": "DB_PORT",
+        "Value": "3306"
+       },
+       {
+        "Name": "AWS_REGION",
+        "Value": "eu-west-1"
+       },
+       {
+        "Name": "AWS_KEYSTRING",
+        "Value": "RdsConstructDBCredentialsSe-HuvS1juo8rDK"
+       },
+       {
+        "Name": "APP_ENV",
+        "Value": "production"
+       },
+       {
+        "Name": "VALKEY_URL",
+        "Value": "clustercfg.valkey-cache.hlr47x.memorydb.eu-west-1.amazonaws.com:6379"
+       }
+      ],
+      "Essential": true,
+      "Image": "148761648660.dkr.ecr.eu-west-1.amazonaws.com/primumai_ai_auth_service",
+      "Memory": 3072,
+      "Name": "PrimumaiAuthAiContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 80,
+        "HostPort": 80,
+        "Name": "ai-authaicontainer-80-tcp",
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "1024",
+    "ExecutionRoleArn": "arn:aws:iam::148761648660:role/PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc",
+    "Family": "PrimumAiAuthServiceECSConstructPrimumaAiAuthTask5D0E7FC0",
+    "Memory": "3072",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": "arn:aws:iam::148761648660:role/PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthTask/Resource"
+   }
+  },
+  "ECSConstructPrimumaiAuthALBD4D78E56": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     "sg-0dc8f9498ea364d11"
+    ],
+    "Subnets": [
+     "subnet-03ba29a1f6c9783c8",
+     "subnet-033dac9b4c4e65d30"
+    ],
+    "Type": "application"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB/Resource"
+   }
+  },
+  "ECSConstructPrimumaiAuthALBListener68870969": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "ECSConstructPrimumaiAuthTargetGroup1D663055B"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "ECSConstructPrimumaiAuthALBD4D78E56"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB/Listener/Resource"
+   }
+  },
+  "ECSConstructPrimumaiAuthTargetGroup1D663055B": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckPath": "/api/health-check",
+    "HealthyThresholdCount": 2,
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "deregistration_delay.timeout_seconds",
+      "Value": "300"
+     },
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "UnhealthyThresholdCount": 10,
+    "VpcId": "vpc-0dc1616c617e1236f"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthTargetGroup1/Resource"
+   }
+  },
+  "ECSConstructPrimumaiAuthService565132C4": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ECSConstructPrimumaiAiAuthCluster06A1DA89"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "DeploymentCircuitBreaker": {
+      "Enable": true,
+      "Rollback": true
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DeploymentController": {
+     "Type": "ECS"
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": true,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "PrimumaiAuthAiContainer",
+      "ContainerPort": 80,
+      "TargetGroupArn": {
+       "Ref": "ECSConstructPrimumaiAuthTargetGroup1D663055B"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "ENABLED",
+      "SecurityGroups": [
+       "sg-0dc8f9498ea364d11",
+       "sg-06982dd85d3af4984",
+       "sg-07c3ae76cdbf0e95e",
+       "sg-0c95d97d4c25beec0",
+       "sg-05c82157d13f08fc0"
+      ],
+      "Subnets": [
+       "subnet-03ba29a1f6c9783c8",
+       "subnet-033dac9b4c4e65d30"
+      ]
+     }
+    },
+    "PlatformVersion": "LATEST",
+    "TaskDefinition": {
+     "Ref": "ECSConstructPrimumaAiAuthTask86A1B283"
+    }
+   },
+   "DependsOn": [
+    "ECSConstructPrimumaiAuthALBListener68870969"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthService/Service"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQTU+DQBD9Lb0va6AevFaMxsRDU3o302XAKesumRloCOG/m0I1qKd58z4yL5PZ9OHephu4SOLKJvF0smOh4BpzQIkdOzRwkfcRXWbzKhToOiYdXjh27WuoGUUMOrFj7jtRZJNX4T/MoQVHOuw59lQi70SiI1CKQcwzcA2KR5DmCSsKdKWv4b9MDAoUkFfcLVsg9+TQzA1nOBn0IErORyhP4CE4CnWf2XHXtp7cfPstQvk4a0vbX/vaR6IYbp5vvNKPwDXq/JOl9886TZPZD/oRw93Wplubbs5ClHAXlD7RHpb5BRYyFDiGAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PrimumAiAuthService/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

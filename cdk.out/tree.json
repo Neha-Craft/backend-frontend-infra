@@ -1,0 +1,759 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "PrimumAiAuthService": {
+        "id": "PrimumAiAuthService",
+        "path": "PrimumAiAuthService",
+        "children": {
+          "ECSConstruct": {
+            "id": "ECSConstruct",
+            "path": "PrimumAiAuthService/ECSConstruct",
+            "children": {
+              "ExistingVPC": {
+                "id": "ExistingVPC",
+                "path": "PrimumAiAuthService/ECSConstruct/ExistingVPC",
+                "children": {
+                  "PublicSubnet1": {
+                    "id": "PublicSubnet1",
+                    "path": "PrimumAiAuthService/ECSConstruct/ExistingVPC/PublicSubnet1",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  },
+                  "PublicSubnet2": {
+                    "id": "PublicSubnet2",
+                    "path": "PrimumAiAuthService/ECSConstruct/ExistingVPC/PublicSubnet2",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  },
+                  "PrivateSubnet1": {
+                    "id": "PrivateSubnet1",
+                    "path": "PrimumAiAuthService/ECSConstruct/ExistingVPC/PrivateSubnet1",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  },
+                  "PrivateSubnet2": {
+                    "id": "PrivateSubnet2",
+                    "path": "PrimumAiAuthService/ECSConstruct/ExistingVPC/PrivateSubnet2",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PublicSubnetA": {
+                "id": "PublicSubnetA",
+                "path": "PrimumAiAuthService/ECSConstruct/PublicSubnetA",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PublicSubnetB": {
+                "id": "PublicSubnetB",
+                "path": "PrimumAiAuthService/ECSConstruct/PublicSubnetB",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrivateSubnetA": {
+                "id": "PrivateSubnetA",
+                "path": "PrimumAiAuthService/ECSConstruct/PrivateSubnetA",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrivateSubnetB": {
+                "id": "PrivateSubnetB",
+                "path": "PrimumAiAuthService/ECSConstruct/PrivateSubnetB",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "SecurityGroup1": {
+                "id": "SecurityGroup1",
+                "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup1",
+                "children": {
+                  "from 0.0.0.0_0:80": {
+                    "id": "from 0.0.0.0_0:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup1/from 0.0.0.0_0:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow from anyone on port 80",
+                        "fromPort": 80,
+                        "groupId": "sg-0dc8f9498ea364d11",
+                        "ipProtocol": "tcp",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  },
+                  "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80": {
+                    "id": "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup1/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": "sg-0dc8f9498ea364d11",
+                        "ipProtocol": "tcp",
+                        "sourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "SecurityGroup2": {
+                "id": "SecurityGroup2",
+                "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup2",
+                "children": {
+                  "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80": {
+                    "id": "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup2/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": "sg-06982dd85d3af4984",
+                        "ipProtocol": "tcp",
+                        "sourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "SecurityGroup3": {
+                "id": "SecurityGroup3",
+                "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup3",
+                "children": {
+                  "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80": {
+                    "id": "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup3/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": "sg-07c3ae76cdbf0e95e",
+                        "ipProtocol": "tcp",
+                        "sourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "SecurityGroup4": {
+                "id": "SecurityGroup4",
+                "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup4",
+                "children": {
+                  "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80": {
+                    "id": "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup4/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": "sg-0c95d97d4c25beec0",
+                        "ipProtocol": "tcp",
+                        "sourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "SecurityGroup5": {
+                "id": "SecurityGroup5",
+                "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup5",
+                "children": {
+                  "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80": {
+                    "id": "from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "path": "PrimumAiAuthService/ECSConstruct/SecurityGroup5/from PrimumAiAuthServiceECSConstructSecurityGroup19A669D21:80",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                      "aws:cdk:cloudformation:props": {
+                        "description": "Load balancer to target",
+                        "fromPort": 80,
+                        "groupId": "sg-05c82157d13f08fc0",
+                        "ipProtocol": "tcp",
+                        "sourceSecurityGroupId": "sg-0dc8f9498ea364d11",
+                        "toPort": 80
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "ALBSecurityGroup": {
+                "id": "ALBSecurityGroup",
+                "path": "PrimumAiAuthService/ECSConstruct/ALBSecurityGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "RDSSecurityGroup": {
+                "id": "RDSSecurityGroup",
+                "path": "PrimumAiAuthService/ECSConstruct/RDSSecurityGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "BastionSecurityGroup": {
+                "id": "BastionSecurityGroup",
+                "path": "PrimumAiAuthService/ECSConstruct/BastionSecurityGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PatientPortalSecurityGroup": {
+                "id": "PatientPortalSecurityGroup",
+                "path": "PrimumAiAuthService/ECSConstruct/PatientPortalSecurityGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "TaskExecutionRole": {
+                "id": "TaskExecutionRole",
+                "path": "PrimumAiAuthService/ECSConstruct/TaskExecutionRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaiAiAuthCluster": {
+                "id": "PrimumaiAiAuthCluster",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Cluster",
+                      "aws:cdk:cloudformation:props": {
+                        "clusterName": "primumaiAiAuth",
+                        "clusterSettings": [
+                          {
+                            "name": "containerInsights",
+                            "value": "disabled"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnCluster",
+                      "version": "2.184.1"
+                    }
+                  },
+                  "PrimumaiAiAuthCluster": {
+                    "id": "PrimumaiAiAuthCluster",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAiAuthCluster/PrimumaiAiAuthCluster",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::ClusterCapacityProviderAssociations",
+                      "aws:cdk:cloudformation:props": {
+                        "capacityProviders": [
+                          "FARGATE",
+                          "FARGATE_SPOT"
+                        ],
+                        "cluster": {
+                          "Ref": "ECSConstructPrimumaiAiAuthCluster06A1DA89"
+                        },
+                        "defaultCapacityProviderStrategy": []
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnClusterCapacityProviderAssociations",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaAiAuthTask": {
+                "id": "PrimumaAiAuthTask",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthTask",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthTask/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
+                      "aws:cdk:cloudformation:props": {
+                        "containerDefinitions": [
+                          {
+                            "essential": true,
+                            "image": "148761648660.dkr.ecr.eu-west-1.amazonaws.com/primumai_ai_auth_service",
+                            "memory": 3072,
+                            "name": "PrimumaiAuthAiContainer",
+                            "portMappings": [
+                              {
+                                "containerPort": 80,
+                                "hostPort": 80,
+                                "protocol": "tcp",
+                                "name": "ai-authaicontainer-80-tcp"
+                              }
+                            ],
+                            "environment": [
+                              {
+                                "name": "JWT_SECRET_OTP",
+                                "value": "otpSecret123"
+                              },
+                              {
+                                "name": "JWT_SECRET_WELCOME",
+                                "value": "welcomeSecret123"
+                              },
+                              {
+                                "name": "JWT_SECRET_SESSION",
+                                "value": "sessionSecret123"
+                              },
+                              {
+                                "name": "DB_HOST",
+                                "value": "localhost"
+                              },
+                              {
+                                "name": "DB_USER",
+                                "value": "root"
+                              },
+                              {
+                                "name": "DB_PASS",
+                                "value": ""
+                              },
+                              {
+                                "name": "DB_NAME",
+                                "value": "auth_microservice"
+                              },
+                              {
+                                "name": "DB_PORT",
+                                "value": "3306"
+                              },
+                              {
+                                "name": "AWS_REGION",
+                                "value": "eu-west-1"
+                              },
+                              {
+                                "name": "AWS_KEYSTRING",
+                                "value": "RdsConstructDBCredentialsSe-HuvS1juo8rDK"
+                              },
+                              {
+                                "name": "APP_ENV",
+                                "value": "production"
+                              },
+                              {
+                                "name": "VALKEY_URL",
+                                "value": "clustercfg.valkey-cache.hlr47x.memorydb.eu-west-1.amazonaws.com:6379"
+                              }
+                            ]
+                          }
+                        ],
+                        "cpu": "1024",
+                        "executionRoleArn": "arn:aws:iam::148761648660:role/PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc",
+                        "family": "PrimumAiAuthServiceECSConstructPrimumaAiAuthTask5D0E7FC0",
+                        "memory": "3072",
+                        "networkMode": "awsvpc",
+                        "requiresCompatibilities": [
+                          "FARGATE"
+                        ],
+                        "taskRoleArn": "arn:aws:iam::148761648660:role/PrimumAiStageStack-EcsConstructEcsTaskExecutionRole-RIm5XA6A5Jnc"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnTaskDefinition",
+                      "version": "2.184.1"
+                    }
+                  },
+                  "PrimumaiAuthAiContainer": {
+                    "id": "PrimumaiAuthAiContainer",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaAiAuthTask/PrimumaiAuthAiContainer",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateTaskDefinition",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "ALBPublicSubnet": {
+                "id": "ALBPublicSubnet",
+                "path": "PrimumAiAuthService/ECSConstruct/ALBPublicSubnet",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "ALBPrivateSubnet": {
+                "id": "ALBPrivateSubnet",
+                "path": "PrimumAiAuthService/ECSConstruct/ALBPrivateSubnet",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaiAuthALB": {
+                "id": "PrimumaiAuthALB",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                      "aws:cdk:cloudformation:props": {
+                        "loadBalancerAttributes": [
+                          {
+                            "key": "deletion_protection.enabled",
+                            "value": "false"
+                          }
+                        ],
+                        "scheme": "internet-facing",
+                        "securityGroups": [
+                          "sg-0dc8f9498ea364d11"
+                        ],
+                        "subnets": [
+                          "subnet-03ba29a1f6c9783c8",
+                          "subnet-033dac9b4c4e65d30"
+                        ],
+                        "type": "application"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnLoadBalancer",
+                      "version": "2.184.1"
+                    }
+                  },
+                  "Listener": {
+                    "id": "Listener",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB/Listener",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthALB/Listener/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                          "aws:cdk:cloudformation:props": {
+                            "defaultActions": [
+                              {
+                                "type": "forward",
+                                "targetGroupArn": {
+                                  "Ref": "ECSConstructPrimumaiAuthTargetGroup1D663055B"
+                                }
+                              }
+                            ],
+                            "loadBalancerArn": {
+                              "Ref": "ECSConstructPrimumaiAuthALBD4D78E56"
+                            },
+                            "port": 80,
+                            "protocol": "HTTP"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnListener",
+                          "version": "2.184.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener",
+                      "version": "2.184.1",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaiAuthTargetGroup1": {
+                "id": "PrimumaiAuthTargetGroup1",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthTargetGroup1",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthTargetGroup1/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "healthCheckPath": "/api/health-check",
+                        "healthyThresholdCount": 2,
+                        "port": 80,
+                        "protocol": "HTTP",
+                        "targetGroupAttributes": [
+                          {
+                            "key": "deregistration_delay.timeout_seconds",
+                            "value": "300"
+                          },
+                          {
+                            "key": "stickiness.enabled",
+                            "value": "false"
+                          }
+                        ],
+                        "targetType": "ip",
+                        "unhealthyThresholdCount": 10,
+                        "vpcId": "vpc-0dc1616c617e1236f"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.CfnTargetGroup",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationTargetGroup",
+                  "version": "2.184.1"
+                }
+              },
+              "ServicePublicSubnetA": {
+                "id": "ServicePublicSubnetA",
+                "path": "PrimumAiAuthService/ECSConstruct/ServicePublicSubnetA",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "ServicePrivateSubnetB": {
+                "id": "ServicePrivateSubnetB",
+                "path": "PrimumAiAuthService/ECSConstruct/ServicePrivateSubnetB",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              },
+              "PrimumaiAuthService": {
+                "id": "PrimumaiAuthService",
+                "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthService",
+                "children": {
+                  "Service": {
+                    "id": "Service",
+                    "path": "PrimumAiAuthService/ECSConstruct/PrimumaiAuthService/Service",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ECS::Service",
+                      "aws:cdk:cloudformation:props": {
+                        "cluster": {
+                          "Ref": "ECSConstructPrimumaiAiAuthCluster06A1DA89"
+                        },
+                        "deploymentConfiguration": {
+                          "maximumPercent": 200,
+                          "minimumHealthyPercent": 50,
+                          "deploymentCircuitBreaker": {
+                            "enable": true,
+                            "rollback": true
+                          },
+                          "alarms": {
+                            "alarmNames": [],
+                            "enable": false,
+                            "rollback": false
+                          }
+                        },
+                        "deploymentController": {
+                          "type": "ECS"
+                        },
+                        "desiredCount": 1,
+                        "enableEcsManagedTags": true,
+                        "healthCheckGracePeriodSeconds": 60,
+                        "launchType": "FARGATE",
+                        "loadBalancers": [
+                          {
+                            "targetGroupArn": {
+                              "Ref": "ECSConstructPrimumaiAuthTargetGroup1D663055B"
+                            },
+                            "containerName": "PrimumaiAuthAiContainer",
+                            "containerPort": 80
+                          }
+                        ],
+                        "networkConfiguration": {
+                          "awsvpcConfiguration": {
+                            "assignPublicIp": "ENABLED",
+                            "subnets": [
+                              "subnet-03ba29a1f6c9783c8",
+                              "subnet-033dac9b4c4e65d30"
+                            ],
+                            "securityGroups": [
+                              "sg-0dc8f9498ea364d11",
+                              "sg-06982dd85d3af4984",
+                              "sg-07c3ae76cdbf0e95e",
+                              "sg-0c95d97d4c25beec0",
+                              "sg-05c82157d13f08fc0"
+                            ]
+                          }
+                        },
+                        "platformVersion": "LATEST",
+                        "taskDefinition": {
+                          "Ref": "ECSConstructPrimumaAiAuthTask86A1B283"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ecs.CfnService",
+                      "version": "2.184.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ecs.FargateService",
+                  "version": "2.184.1",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.2"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "PrimumAiAuthService/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "PrimumAiAuthService/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.184.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.2"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "PrimumAiAuthService/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.184.1"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "PrimumAiAuthService/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.184.1"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.184.1"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.4.2"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.184.1"
+    }
+  }
+}
