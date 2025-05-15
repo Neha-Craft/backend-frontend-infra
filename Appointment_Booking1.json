@@ -1,0 +1,484 @@
+{
+  "name": "Appointment Booking1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0567109b-7338-4754-aecf-5d81bf0f1210",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -680,
+        140
+      ],
+      "id": "8ec8a194-f384-4eca-a5cb-045de06fdaf6",
+      "name": "Webhook",
+      "webhookId": "0567109b-7338-4754-aecf-5d81bf0f1210"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.type }}",
+                    "rightValue": "tool-calls",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "tool-calls-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Tools"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -460,
+        140
+      ],
+      "id": "18b275f9-09f0-4f60-b7d9-601e124491c5",
+      "name": "Main Switch"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "check_available_doctors",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "check-doctors-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Check Doctors"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "get_available_slots",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "check-slots-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Get Slots"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "book_appointment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "book-appointment-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Book Appointment"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -220,
+        140
+      ],
+      "id": "13ab2a8b-91bf-4773-a992-a52daf8ded29",
+      "name": "Tool Switch"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract the hospital_owner_id from arguments, or use default\nconst args = $input.item.json.body.message.toolCalls[0]?.function?.arguments || '{}';\nlet parsedArgs;\ntry {\n  parsedArgs = typeof args === 'string' ? JSON.parse(args) : args;\n} catch (e) {\n  parsedArgs = {};\n}\n\nconst hospitalOwnerId = parsedArgs.hospital_owner_id || 1;\nconst toolCallId = $input.item.json.body.message.toolCalls[0]?.id || '';\n\nreturn {\n  toolCallId,\n  hospitalOwnerId,\n  originalData: $input.item.json.body\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "be101a06-9993-4112-b88e-29e2d8028221",
+      "name": "Extract Doctor Query Params"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.primumai.eu/api/vapi/available/doctor?hospital_owner_id={{ $json.hospitalOwnerId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "787edc9a-f839-4810-b65e-83e9ab1b8d8e",
+      "name": "Get Available Doctors API"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the response directly\nconst response = $json; \nconst toolCallId = $node[\"Main Switch\"].json.body.message.toolCalls[0].id;\n\n// Store services for future reference in the workflow\nlet allServices = [];\n\n// Process the API response\nlet doctorsList = [];\n\n// Check if we have a valid response\nif (response) {\n    // Extract doctors and services\n    if (response.data && response.data.doctors && response.data.services) {\n        const doctors = response.data.doctors;\n        const services = response.data.services;\n        \n        // Store all services for later use\n        allServices = services;\n        \n        doctorsList = doctors.map(doctor => {\n            // Get services for this doctor\n            const doctorServices = services.filter(service => \n                service.doctor_id === doctor.id.toString()\n            );\n            \n            // Format doctor name and services\n            const doctorName = doctor.first_name;\n            const servicesList = doctorServices.map(s => {\n                return `${s.title} ($${s.fee})`;\n            }).join(', ');\n            \n            return `Dr. ${doctorName} (ID: ${doctor.id}) - Available Services: ${servicesList}`;\n        });\n    }\n}\n\n// If no doctors were processed, use default message\nif (doctorsList.length === 0) {\n    doctorsList = ['Currently no doctors available'];\n}\n\nconst resultText = `Available doctors:\\n${doctorsList.join('\\n')}`;\n\n// Save services info to be accessible in other nodes\nconst nodeContext = {\n    services: allServices\n};\n\nreturn {\n    results: [\n        {\n            toolCallId: toolCallId,\n            result: resultText\n        }\n    ],\n    services: allServices,  // Include services for other nodes to use\n    nodeContext: nodeContext // Store in node context for workflow\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "5e3d2044-a2b8-44dd-98c9-e7ec7d72c8ae",
+      "name": "Format Doctor List"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "2c8578db-d8a0-44bf-9c26-dc7a501efb94",
+      "name": "Available Doctors Response"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse function arguments\nconst args = $input.item.json.body.message.toolCalls[0]?.function?.arguments || '{}';\nlet parsedArgs;\ntry {\n  parsedArgs = typeof args === 'string' ? JSON.parse(args) : args;\n} catch (e) {\n  parsedArgs = {};\n}\n\n// Get services from previous node if available\nlet serviceId = parsedArgs.serviceId || 9; // Default service ID\nconst serviceName = parsedArgs.serviceName; // Get the service name from arguments\n\n// Access previously stored services if available\nlet services = [];\ntry {\n  // Try to get services from the Format Doctor List node\n  const previousNodeData = $node[\"Format Doctor List\"];\n  if (previousNodeData && previousNodeData.json && previousNodeData.json.services) {\n    services = previousNodeData.json.services;\n    \n    // If serviceName is provided, try to find matching service ID\n    if (serviceName && services.length > 0) {\n      const matchedService = services.find(service => \n        service.title.toLowerCase().includes(serviceName.toLowerCase())\n      );\n      \n      if (matchedService) {\n        serviceId = matchedService.id;\n        console.log(`Found matching service ID ${serviceId} for service name: ${serviceName}`);\n      }\n    }\n  }\n} catch (error) {\n  console.log('Error accessing services:', error.message);\n}\n\nreturn {\n  toolCallId: $input.item.json.body.message.toolCalls[0]?.id || '',\n  originalData: $input.item.json.body,\n  doctorId: parsedArgs.doctorId, // Dynamic value from arguments\n  appointmentDate: parsedArgs.appointmentDate || new Date().toISOString().split('T')[0],\n  hospitalOwnerId: parsedArgs.hospitalOwnerId || 1, // Static default value\n  serviceId: serviceId, // Now using matched service ID if found\n  serviceName: serviceName, // Store the service name for reference\n  gms: parsedArgs.gms === true\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        180
+      ],
+      "id": "32cf2064-c419-4e4c-814b-ad2150669338",
+      "name": "Extract Slot Query Params"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.primumai.eu/api/booking/get-hospital-doctor-slots",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"doctorId\": {{ $json.doctorId }},\n    \"appointmentDate\": \"{{ $json.appointmentDate }}\",\n    \"hospital_owner_id\": {{ $json.hospitalOwnerId }},\n    \"service_id\": {{ $json.serviceId }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        180,
+        200
+      ],
+      "id": "f5d3645d-1d22-48bc-a85e-62a8e5ee4a14",
+      "name": "Get Available Slots API"
+    },
+    {
+      "parameters": {
+        "functionCode": "const toolCallId = $json.toolCallId;\nconst che = $node[\"Main Switch\"].json.body.message.toolCalls[0].id\n\n// Debug: Log entire input structure\nconsole.log(\"DEBUG - Full Input Structure:\", JSON.stringify($json, null, 2));\n\n// Try multiple common slot locations\nconst slots = $json.slots || \n             $json.body?.slots || \n             $json.data?.slots || \n             $json.result?.slots || \n             [];\n\n// Debug: Log raw slots data\nconsole.log(\"DEBUG - Raw Slots Data:\", JSON.stringify(slots, null, 2));\n\n// Validate slots array\nif (!Array.isArray(slots)) {\n  console.log(\"DEBUG - Slots is not an array\");\n  return { \n    results: [{ \n      toolCallId, \n      result: \"Invalid slots format received\" \n    }] \n  };\n}\n\n// Handle empty slots case\nif (slots.length === 0) {\n  console.log(\"DEBUG - Empty slots array\");\n  return { \n    results: [{ \n      toolCallId, \n      result: \"No available slots found for the selected date and doctor.\" \n    }] \n  };\n}\n\n// Debug: Show first slot's structure\nif (slots[0]) {\n  console.log(\"DEBUG - First Slot Structure:\", JSON.stringify(slots[0], null, 2));\n  console.log(\"DEBUG - First Slot Keys:\", Object.keys(slots[0]));\n}\n\n// Flexible time property handling\nconst formattedSlots = slots.slice(0, 5).map(slot => {\n  // Try multiple common time property names\n  const start = slot.start_time || slot.startTime || slot.start || \"Unknown Start\";\n  const end = slot.end_time || slot.endTime || slot.end || \"Unknown End\";\n  \n  return `${start} to ${end}`;\n});\n\n// Debug: Show formatted output\nconsole.log(\"DEBUG - Formatted Slots:\", formattedSlots);\n\n// Include the service information\nconst serviceInfo = $json.serviceName ? \n  `for ${$json.serviceName} (Service ID: ${$json.serviceId})` : \n  `for service ID: ${$json.serviceId}`;\n\n// Build final result\nconst resultText = `Available slots ${serviceInfo}:\\n${formattedSlots.join(\"\\n\")}`;\n\nreturn {\n  results: [{\n    toolCallId: che,\n    result: resultText\n  }]\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        380,
+        200
+      ],
+      "id": "d1ad9c6c-73b7-4102-baeb-d230deacd6ce",
+      "name": "Format Slot Times"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        580,
+        200
+      ],
+      "id": "497ea232-da8e-48af-9bb5-413c2e3f7747",
+      "name": "Available Slots Response"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse function arguments\nconst args = $input.item.json.body.message.toolCalls[0]?.function?.arguments || '{}';\nlet parsedArgs;\ntry {\n  parsedArgs = typeof args === 'string' ? JSON.parse(args) : args;\n} catch (e) {\n  parsedArgs = {};\n}\n\n// Get services from previous node if available\nlet serviceId = parsedArgs.serviceId || 9; // Default service ID\nconst serviceName = parsedArgs.serviceName; // Get the service name from arguments\n\n// Access previously stored services if available\nlet services = [];\ntry {\n  // Try to get services from the Format Doctor List node\n  const previousNodeData = $node[\"Format Doctor List\"];\n  if (previousNodeData && previousNodeData.json && previousNodeData.json.services) {\n    services = previousNodeData.json.services;\n    \n    // If serviceName is provided, try to find matching service ID\n    if (serviceName && services.length > 0) {\n      const matchedService = services.find(service => \n        service.title.toLowerCase().includes(serviceName.toLowerCase())\n      );\n      \n      if (matchedService) {\n        serviceId = matchedService.id;\n        console.log(`Found matching service ID ${serviceId} for service name: ${serviceName}`);\n      }\n    }\n  }\n} catch (error) {\n  console.log('Error accessing services:', error.message);\n}\n\nreturn {\n  toolCallId: $input.item.json.body.message.toolCalls[0]?.id || '',\n  doctorId: parsedArgs.doctorId,\n  date: parsedArgs.date,\n  time: parsedArgs.time,\n  patientName: parsedArgs.firstName + ' ' + (parsedArgs.lastName || ''),\n  patientEmail: parsedArgs.email,\n  firstName: parsedArgs.firstName,\n  lastName: parsedArgs.lastName,\n  patientPhone: parsedArgs.patientPhone,\n  reasonForVisit: parsedArgs.reasonForVisit,\n  allergies: parsedArgs.allergies,\n  vitals: parsedArgs.vitals,\n  hospitalOwnerId: parsedArgs.hospitalOwnerId || \"56ea0475-3e10-4251-9fa7-8e80bc28d07c\",\n  serviceId: serviceId, // Now using matched service ID if found\n  serviceName: serviceName // Store the service name for reference\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        360
+      ],
+      "id": "dff509e1-95e4-4f6b-be06-67382ed237df",
+      "name": "Extract Booking Details"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.primumai.eu/api/vapi/create/appointment",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"hospitalOwnerId\": 1,\n  \"doctorId\": {{ $json.doctorId }},\n  \"patient_id\": 100,  \n  \"first_name\": \"{{ $json.firstName }}\",\n  \"last_name\": \"{{ $json.lastName || '' }}\",\n  \"email\": \"{{ $json.patientEmail }}\",\n  \"appointment_date\": \"{{ $json.date }}\",\n  \"start_time\": \"{{ $json.time }}\", \n  \"service_id\": {{ $json.serviceId }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        180,
+        360
+      ],
+      "id": "6ec514e3-1415-4929-a96c-1b922ac6e3e3",
+      "name": "Book Appointment API"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the original toolCallId from the Main Switch node\nconst toolCallId = $node[\"Main Switch\"].json.body.message.toolCalls[0].id;\n\n// Debugging: Show actual input structure\nconsole.log(\"Debug Input:\", JSON.stringify($json, null, 2));\n\n// The structure of $json shows the API response directly\n// We need to access it properly\nconst response = $json || {}; \nconst appointment = response.appointment || {};\n\n// Get patient details from original request\nconst patientName = `${$json.firstName || ''}${$json.lastName ? ' ' + $json.lastName : ''}`.trim();\nconst patientEmail = $json.patientEmail || 'No email provided';\n\n// Get service information\nconst serviceInfo = $json.serviceName ? $json.serviceName : `Service ID: ${$json.serviceId || 'N/A'}`;\n\nlet resultText;\n\nif (response.status === \"success\") {\n  resultText = `Appointment successfully booked!\n  - Confirmation ID: ${appointment.id || 'PENDING'}\n  - Doctor ID: ${appointment.gp_id || 'N/A'}\n  - Date: ${appointment.appointment_date || 'Unknown date'}\n  - Time: ${appointment.start_time || 'Unknown time'}\n  - Patient: ${patientName}\n  - Email: ${patientEmail}\n  - Service: ${serviceInfo}`;\n} else {\n  resultText = `Unable to book appointment. ${response.message || 'No error message available'}.`;\n}\n\n// Clean up formatting\nresultText = resultText.replace(/  -/g, '\\n-');\n\n// Make sure we return in the expected format with toolCallId\nreturn {\n  results: [{\n    toolCallId: toolCallId,\n    result: resultText\n  }]\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        380,
+        360
+      ],
+      "id": "afa7c674-33b2-4d69-91dc-3ae7550208ba",
+      "name": "Format Booking Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        360
+      ],
+      "id": "e3edb961-b1e7-4e10-bafe-aef07501b6d3",
+      "name": "Booking Confirmation Response"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Main Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Switch": {
+      "main": [
+        [
+          {
+            "node": "Tool Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Switch": {
+      "main": [
+        [
+          {
+            "node": "Extract Doctor Query Params",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Slot Query Params",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Booking Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Doctor Query Params": {
+      "main": [
+        [
+          {
+            "node": "Get Available Doctors API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Doctors API": {
+      "main": [
+        [
+          {
+            "node": "Format Doctor List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Doctor List": {
+      "main": [
+        [
+          {
+            "node": "Available Doctors Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Slot Query Params": {
+      "main": [
+        [
+          {
+            "node": "Get Available Slots API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Slots API": {
+      "main": [
+        [
+          {
+            "node": "Format Slot Times",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Slot Times": {
+      "main": [
+        [
+          {
+            "node": "Available Slots Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Booking Details": {
+      "main": [
+        [
+          {
+            "node": "Book Appointment API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Book Appointment API": {
+      "main": [
+        [
+          {
+            "node": "Format Booking Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Booking Response": {
+      "main": [
+        [
+          {
+            "node": "Booking Confirmation Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "32ee7bf6-c1c1-4e4b-8b9c-43b547684734",
+  "meta": {
+    "instanceId": "0000e7b60954029ec75a956342304e9383753df76ef1d4fd0ea311a6aedcb58a"
+  },
+  "id": "NhCOZlwJCDUFIQ1w",
+  "tags": []
+}

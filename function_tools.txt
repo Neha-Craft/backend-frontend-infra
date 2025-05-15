@@ -1,0 +1,25 @@
+Vapi Configuration -> function_Tools ->
+1. tool name -  check_available_doctors
+Description - Retrieves a list of available doctors for appointment booking
+Parameters - None
+
+2. tool name - get_available_slots
+Description - Retrieves available appointment slots for a specific doctor on a specific date
+Parameters -> 
+i. Name - doctorId, Type - number, description - The ID of the doctor to check availability for slots
+ii. Name - serviceId, Type - number, description - The ID of the service to check availability for slots
+iii. Name - serviceName, Type - string, description - The name of the service (will be matched to find the correct service ID)
+iv. Name - appointmentDate, Type - string, description - The date to check for available slots in YYYY-MM-DD format
+v. Name - hospitalOwnerId, Type - number, description - The ID of the hospital owner (default: 1)
+Required - docterId, appointmentDate
+
+3. tool Name - book_appointment
+Description - Books an appointment with the specified doctor, date, and time
+Parameters ->
+i. Name - date, Type - string, description - The date of the appointment in YYYY-MM-DD format
+ii. Name - time, Type - string, description - The start time of the appointment in HH:MM format
+iii. Name - email, Type - string, description - Patient's email address
+iv. Name - doctorId, Type - number, description - The ID of the doctor to book with
+v. Name - lastName, Type - string, description - Patient's last name
+vi . Name - firstName, Type - string, description - Patient's first name
+Required - date, time, email, doctorId, firstName
