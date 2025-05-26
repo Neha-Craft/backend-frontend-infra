@@ -11,7 +11,7 @@ ii. Name - serviceId, Type - number, description - The ID of the service to chec
 iii. Name - serviceName, Type - string, description - The name of the service (will be matched to find the correct service ID)
 iv. Name - appointmentDate, Type - string, description - The date to check for available slots in YYYY-MM-DD format
 v. Name - hospitalOwnerId, Type - number, description - The ID of the hospital owner (default: 1)
-Required - docterId, appointmentDate
+Required - docterId, appointmentDate, serviceId
 
 3. tool Name - book_appointment
 Description - Books an appointment with the specified doctor, date, and time
@@ -22,4 +22,11 @@ iii. Name - email, Type - string, description - Patient's email address
 iv. Name - doctorId, Type - number, description - The ID of the doctor to book with
 v. Name - lastName, Type - string, description - Patient's last name
 vi . Name - firstName, Type - string, description - Patient's first name
-Required - date, time, email, doctorId, firstName
+Required - date, time, email, doctorId, firstName, serviced
+
+
+4. tool name - get selected service
+Description - Set the selected serviceId choosen by user
+Parameters ->
+i. Name - serviced, Type - number, description - this is service id used by user for the booking of appointment
+Required - serviceId

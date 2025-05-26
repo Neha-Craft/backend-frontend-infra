@@ -1,0 +1,40 @@
+Vapi Configuration -> function_Tools
+
+1. Tool Name - check_available_doctors
+Description - You need to call this fucntion when we check for available doctors
+Parameters - None
+
+2. Tool Name - book_appointment
+Description - This function will called in final step of booking confirmation with mandatory dates.
+Parameters ->
+i.   Name - email,     Type - string
+ii.  Name - apptDate,  Type - string
+iii. Name - docterId,  Type - number
+iv.  Name - lastName,  Type - string
+v.   Name - slotTime,  Type - string
+vi.  Name - firstName, Type - string
+vii. Name - serviceId, Type - number
+Required - email, apptDate, docterId, lastName, slotTime, firstName, serviceId
+
+3. Tool Name - get_available_slots
+Description - Call this function when we have to get the slots for particular date time with given doctorId
+Parameters ->
+i.   Name - apptDate,  Type - string, Description - This is date yyyy-mm-dd filed important to get available slot.
+ii.  Name - docterId,  Type - number, Description - This is required doctorId filed need to get available slot.
+iii. Name - serviceId, Type - number, Description - This is very important field and it is required it will be to find available slots.
+Required - apptDate, docterId, serviceId
+
+4. Tool Name - next_available_slot
+Description - Call this function when user selects next available slots
+Parameters ->
+i.  Name - docterId,  Type - number
+ii. Name - serviceId, Type - number
+
+5. Tool Name - check_gms
+Description - Call this function when user have their GMS number
+Parameters ->
+i. Name - gms_num, Type - string, Description - None
+
+6. Tool Name - end_call
+Description - Call this function to politely end the conversation when the user has no more requests, or after all tasks (like booking an appointment) are completed and the user is ready to finish the call. This allows for a final thank you message.
+Parameters - None

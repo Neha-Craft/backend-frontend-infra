@@ -1,0 +1,614 @@
+{
+  "name": "AppointmentBooking",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aaa8ca1e-5ccd-4fb0-a025-e8667281ccab",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -660,
+        200
+      ],
+      "id": "d97826d2-79b1-4dc1-9e53-2a12f2277190",
+      "name": "Webhook",
+      "webhookId": "aaa8ca1e-5ccd-4fb0-a025-e8667281ccab"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.type }}",
+                    "rightValue": "tool-calls",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "tool-calls-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Tools"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -420,
+        200
+      ],
+      "id": "0a319244-6914-4a7b-bc30-f3a07f95f068",
+      "name": "Main Switch"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "check_available_doctors",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "check-doctors-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Check Doctors"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "get_available_slots",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "check-slots-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Get Slots"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "book_appointment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "book-appointment-condition"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Book Appointment"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f4c36757-7416-451b-84bc-36cfd6a4d05e",
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "next_available_slot",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "next_available_slot"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "779095d5-49eb-4071-82bc-1c608ab86965",
+                    "leftValue": "={{ $json.body.message.toolCalls[0].function.name }}",
+                    "rightValue": "check_gms",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Check Gms"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -220,
+        200
+      ],
+      "id": "e9640fd8-176d-410e-95e1-4f39bab75052",
+      "name": "Tool Switch"
+    },
+    {
+      "parameters": {
+        "functionCode": "console.log('[Extract Doctor Query Params] EXECUTION START - Input:', JSON.stringify($input.item.json.body, null, 2));\n\nconst toolCall = $input.item.json.body.message.toolCalls && $input.item.json.body.message.toolCalls[0];\nconst argsString = toolCall?.function?.arguments || '{}';\nlet parsedArgs;\ntry {\n  parsedArgs = typeof argsString === 'string' ? JSON.parse(argsString) : argsString;\n} catch (e) {\n  console.error('[Extract Doctor Query Params] Error parsing arguments: ', e, \"Input args:\", argsString);\n  parsedArgs = {};\n}\nconsole.log('[Extract Doctor Query Params] Parsed Arguments:', JSON.stringify(parsedArgs, null, 2));\n\nconst hospitalOwnerId = parsedArgs.hospital_owner_id || 1;\nconst toolCallId = toolCall?.id || 'unknown_tool_call_id_from_Extract_Doctor_Query_Params';\n\nconsole.log(`[Extract Doctor Query Params] toolCallId: ${toolCallId}, hospitalOwnerId: ${hospitalOwnerId}`);\n\nreturn {\n  toolCallId,\n  hospitalOwnerId,\n  originalWebhookData: $input.item.json.body\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a5ff2326-0063-4fb8-8a49-51f32af6077f",
+      "name": "Extract Doctor Query Params"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.primumai.eu/api/vapi/available/doctor?hospital_owner_id={{ $json.hospitalOwnerId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "f2696abb-9bc7-434e-8c74-e006b8de6acf",
+      "name": "Get Available Doctors API"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "e7abfc91-abb3-4fe7-b6bb-3c8445e3ef2d",
+      "name": "Available Doctors Response"
+    },
+    {
+      "parameters": {
+        "functionCode": "// --- START OF FUNCTION CODE for Extract Slot Query Params ---\nconsole.log('[Extract Slot Query Params] EXECUTION START - Input:', JSON.stringify($input.item.json.body, null, 2));\n\nfunction parseDate(inputDateString) {\n  if (!inputDateString) {\n    const now = new Date();\n    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString().split('T')[0];\n  }\n  const cleanedInput = String(inputDateString).toLowerCase().trim().replace(/(?<=\\d)(st|nd|rd|th)\\b/g, '');\n  const now = new Date();\n  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));\n\n  if (cleanedInput === 'today') return today.toISOString().split('T')[0];\n  if (cleanedInput === 'tomorrow') {\n    const tomorrow = new Date(today); tomorrow.setUTCDate(today.getUTCDate() + 1); return tomorrow.toISOString().split('T')[0];\n  }\n  const nextDayMatch = cleanedInput.match(/^next (\\w+)/);\n  if (nextDayMatch) {\n    const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\n    const targetDayName = nextDayMatch[1];\n    let targetDayIndex = daysOfWeek.findIndex(day => day.startsWith(targetDayName.substring(0,3)));\n    if (targetDayIndex !== -1) {\n      let diff = targetDayIndex - today.getUTCDay(); if (diff <= 0) diff += 7;\n      const nextDate = new Date(today); nextDate.setUTCDate(today.getUTCDate() + diff); return nextDate.toISOString().split('T')[0];\n    }\n  }\n  const daysLaterMatch = cleanedInput.match(/^in (\\d+) days?/);\n  if (daysLaterMatch) {\n    const days = parseInt(daysLaterMatch[1], 10);\n    const futureDate = new Date(today); futureDate.setUTCDate(today.getUTCDate() + days); return futureDate.toISOString().split('T')[0];\n  }\n  let dateToParse = cleanedInput;\n  if (/^((\\d{1,2})[\\s\\-\\/](\\w+)|(\\w+)[\\s\\-\\/](\\d{1,2}))$/.test(cleanedInput) && !/\\d{4}/.test(cleanedInput)) {\n      dateToParse = `${cleanedInput} ${now.getUTCFullYear()}`;\n  }\n  let parsedJSDate = new Date(dateToParse);\n  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(dateToParse)) {\n      const parts = dateToParse.split('-');\n      parsedJSDate = new Date(Date.UTC(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2])));\n  } else if (dateToParse.length === 2 && !isNaN(parseInt(dateToParse))) {\n      const dayOfMonth = parseInt(dateToParse, 10);\n      let targetMonth = today.getUTCMonth();\n      let targetYear = today.getUTCFullYear();\n      if (dayOfMonth < today.getUTCDate()) {\n          targetMonth += 1;\n          if (targetMonth > 11) { targetMonth = 0; targetYear +=1; }\n      }\n      parsedJSDate = new Date(Date.UTC(targetYear, targetMonth, dayOfMonth));\n  }\n\n  if (!isNaN(parsedJSDate.getTime())) {\n    return new Date(Date.UTC(parsedJSDate.getFullYear(), parsedJSDate.getMonth(), parsedJSDate.getDate())).toISOString().split('T')[0];\n  }\n  console.warn('[Extract Slot Query Params] [parseDate] Failed for input: \"' + inputDateString + '\". Returning PARSE_ERROR_FLAG.');\n  return 'PARSE_ERROR_FLAG';\n}\n\nconst toolCall = $input.item.json.body.message.toolCalls && $input.item.json.body.message.toolCalls[0];\nconst argsString = toolCall?.function?.arguments || '{}';\nlet parsedArgs;\ntry {\n  parsedArgs = typeof argsString === 'string' ? JSON.parse(argsString) : argsString;\n} catch (e) {\n  console.error('[Extract Slot Query Params] Error parsing arguments: ', e, \"Input args:\", argsString);\n  parsedArgs = {};\n}\nconsole.log('[Extract Slot Query Params] Parsed Arguments (parsedArgs):', JSON.stringify(parsedArgs, null, 2));\n\nconst toolCallId = toolCall?.id || 'unknown_tool_call_id_from_Extract_Slot_Query_Params_slots';\nconst userDateInput = parsedArgs.appointmentDate || 'today'; // This is the 'raw' date from Vapi\nconst formattedDate = parseDate(userDateInput);\n\nif (formattedDate === 'PARSE_ERROR_FLAG') {\n  const errorMessage = `I couldn't understand the date '${userDateInput}'. Please try specifying the date clearly, like 'today', 'tomorrow', 'June tenth', or 'next Monday'.`;\n  console.error(`[Extract Slot Query Params] Date parsing failed for input: \"${userDateInput}\". Message: ${errorMessage}`);\n  return {\n    toolCallId: toolCallId,\n    error: \"DATE_PARSE_ERROR\",\n    errorMessage: errorMessage,\n    originalWebhookData: $input.item.json.body\n  };\n}\nconsole.log(`[Extract Slot Query Params] Original date input: \"${userDateInput}\", Parsed to YYYY-MM-DD: \"${formattedDate}\"`);\n\nconst hospitalOwnerId = parsedArgs.hospitalOwnerId || 1;\nlet services = [];\ntry {\n  console.log(`[Extract Slot Query Params] Fetching services for hospitalOwnerId: ${hospitalOwnerId} to match serviceName.`);\n  const doctorServicesResponse = await $fetch(`https://api.primumai.eu/api/vapi/available/doctor?hospital_owner_id=${hospitalOwnerId}`);\n  if (doctorServicesResponse && doctorServicesResponse.data && Array.isArray(doctorServicesResponse.data.services)) {\n    services = doctorServicesResponse.data.services;\n    console.log(`[Extract Slot Query Params] Successfully fetched ${services.length} services.`);\n    if (services.length > 0) {\n        console.log('[Extract Slot Query Params] Fetched Services List (first 5 titles):', JSON.stringify(services.slice(0,5).map(s => s.title), null, 2));\n    }\n  } else {\n    console.warn('[Extract Slot Query Params] Fetched services data is not in expected format or empty. Response:', JSON.stringify(doctorServicesResponse));\n  }\n} catch (error) {\n  console.error(`[Extract Slot Query Params] Failed to fetch services: ${error.message}`, error.stack);\n}\n\nlet serviceId;\nconst serviceNameFromArgs = parsedArgs.serviceName?.trim();\nconst serviceIdFromArgs = parsedArgs.serviceId; // Vapi might send this directly\nconsole.log(`[Extract Slot Query Params] Attempting to determine Service ID. From args: serviceName=\"${serviceNameFromArgs}\", serviceId=\"${serviceIdFromArgs}\"`);\n\n\nif (serviceNameFromArgs && services.length > 0) {\n  const matchedService = services.find(service =>\n    service && typeof service.title === 'string' &&\n    service.title.trim().toLowerCase() === serviceNameFromArgs.toLowerCase()\n  );\n  if (matchedService) {\n    serviceId = matchedService.id;\n    console.log(`[Extract Slot Query Params] MATCH FOUND: Service ID ${serviceId} for name: \"${serviceNameFromArgs}\" (Actual title: \"${matchedService.title}\")`);\n  } else {\n    console.warn(`[Extract Slot Query Params] NO MATCH: For service name: \"${serviceNameFromArgs}\". Available service titles (case-insensitive check against these): ${services.map(s=>`\"${s.title.trim().toLowerCase()}\"`).join(', ')}`);\n  }\n} else if (serviceNameFromArgs && services.length === 0) {\n    console.warn(`[Extract Slot Query Params] Service name \"${serviceNameFromArgs}\" was provided, but no services were fetched (or fetch failed). Cannot match.`);\n} else if (!serviceNameFromArgs) {\n    console.log('[Extract Slot Query Params] No serviceName provided in arguments. Will check for serviceIdFromArgs or default.');\n}\n\n\nif (serviceId === undefined) {\n  if (serviceIdFromArgs !== undefined && !isNaN(parseInt(serviceIdFromArgs))) {\n    serviceId = parseInt(serviceIdFromArgs);\n    console.log(`[Extract Slot Query Params] Using explicit serviceId ${serviceId} from arguments.`);\n  } else {\n    const defaultServiceId = 9;\n    if(serviceNameFromArgs && services.length > 0 && serviceId === undefined) {\n        const errorMessage = `I couldn't find the service named '${serviceNameFromArgs}'. Please choose from the available services or try again.`;\n        console.error(`[Extract Slot Query Params] CRITICAL FAILURE: Service name \"${serviceNameFromArgs}\" was provided but NOT MATCHED among ${services.length} fetched services. Returning error to Vapi.`);\n        return {\n            toolCallId: toolCallId,\n            error: \"SERVICE_NOT_FOUND\",\n            errorMessage: errorMessage,\n            originalWebhookData: $input.item.json.body\n        };\n    }\n    serviceId = defaultServiceId;\n    console.warn(`[Extract Slot Query Params] Service ID defaulting to ${serviceId}. Conditions: serviceNameFromArgs=\"${serviceNameFromArgs}\", serviceIdFromArgs=\"${serviceIdFromArgs}\", services.length=${services.length}.`);\n  }\n}\n\nconsole.log(`[Extract Slot Query Params] Final determined serviceId: ${serviceId}`);\n\nreturn {\n  toolCallId,\n  originalWebhookData: $input.item.json.body,\n  doctorId: parsedArgs.doctorId,\n  appointmentDate: formattedDate, \n  originalDateInput: userDateInput, \n  hospitalOwnerId,\n  serviceId,\n  serviceName: serviceNameFromArgs, \n  gms: parsedArgs.gms === true, \n  timePreference: parsedArgs.timePreference\n};\n// --- END OF FUNCTION CODE for Extract Slot Query Params ---"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        20,
+        200
+      ],
+      "id": "7a007a05-a9d1-45ef-8ed4-69f79626cdf4",
+      "name": "Extract Slot Query Params"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.primumai.eu/api/booking/get-hospital-doctor-slots",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=  {\n    \"doctorId\": {{$node['Extract Slot Query Params'].json.originalWebhookData.message.toolCalls[0].function.arguments.doctorId}},\n    \"appointmentDate\": \"{{$node['Extract Slot Query Params'].json.originalWebhookData.message.toolCalls[0].function.arguments.apptDate}}\",\n    \"hospital_owner_id\": 1,\n    \"service_id\": {{$node['Extract Slot Query Params'].json.originalWebhookData.message.toolCalls[0].function.arguments.serviceId}}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        220,
+        200
+      ],
+      "id": "1d7f5447-6b54-4d20-8631-d2d9f23c7dc6",
+      "name": "Get Available Slots API"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        200
+      ],
+      "id": "cd73d455-b04d-4706-a03e-977d49b06ed3",
+      "name": "Available Slots Response"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.primumai.eu/api/vapi/create/appointment",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"hospitalOwnerId\":1,\n  \"doctorId\": {{ $json.body.message.toolCallList[0].function.arguments.doctorId }},\n  \"first_name\": \"{{ $json.body.message.toolCallList[0].function.arguments.firstName }}\",\n  \"last_name\": \"{{ $json.body.message.toolCallList[0].function.arguments.lastName }}\",\n  \"email\": \"{{ $json.body.message.toolCallList[0].function.arguments.email }}\",\n  \"appointment_date\": \"{{ $json.body.message.toolCallList[0].function.arguments.apptDate}}\",\n  \"start_time\": \"{{ $json.body.message.toolCallList[0].function.arguments.slotTime}}\", \n  \"service_id\": {{ $json.body.message.toolCallList[0].function.arguments.serviceId}}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        0,
+        400
+      ],
+      "id": "30c01a3b-e870-45b3-b255-13122bc2c4ac",
+      "name": "Book Appointment API"
+    },
+    {
+      "parameters": {
+        "functionCode": "// --- START OF FUNCTION CODE for Format Booking Response ---\nconsole.log('[Format Booking Response] EXECUTION START');\n\nconst apiResponse = $input.item.json; // This is the output from \"Book Appointment API\"\nconsole.log('[Format Booking Response] Input from Book Appointment API:', JSON.stringify(apiResponse, null, 2));\n\n// Access the original webhook data, likely from \"Main Switch\" or \"Tool Switch\"\n// Let's use \"Main Switch\" as it's a common upstream point for all tool calls\nconst originalWebhookPayload = $node[\"Main Switch\"].json.body;\nconsole.log('[Format Booking Response] Data from Main Switch (original webhook):', JSON.stringify(originalWebhookPayload, null, 2));\n\nconst toolCall = originalWebhookPayload.message.toolCalls && originalWebhookPayload.message.toolCalls[0];\nconst toolCallId = toolCall?.id || 'unknown_tool_call_id_in_Format_Booking_Response';\n\n// Extract original arguments. Vapi prompt mentions \"docterId\", n8n HTTP request uses \"doctorId\"\n// We'll assume the arguments are under \"arguments\" as per common practice and your other nodes\nconst originalArgs = toolCall?.function?.arguments || {};\n\n// Check if there was an error passed from a previous (hypothetical or actual) parsing step.\n// If your other \"Extract...\" nodes can set an error on their output, you might handle it here.\n// For now, we'll assume the primary check is the API response status.\n// if (originalWebhookPayload.error) { // This would be if Main Switch itself set an error\n//   console.warn(`[Format Booking Response] Handling error from upstream: ${originalWebhookPayload.error}`);\n//   return {\n//     results: [{\n//       toolCallId: toolCallId,\n//       result: originalWebhookPayload.errorMessage || \"An unspecified error occurred before booking.\"\n//     }]\n//   };\n// }\n\nconst patientName = (originalArgs.firstName && originalArgs.lastName) ? `${originalArgs.firstName} ${originalArgs.lastName}`.trim() : 'Valued Patient';\nconst patientEmail = originalArgs.email || 'your registered email';\n\n// serviceName might not be in originalArgs if only serviceId was passed.\n// We will prioritize service name from the API response if available.\nconst serviceIdFromArgs = originalArgs.serviceId;\n// The Vapi function tool for book_appointment takes serviceId, not serviceName.\n// So, serviceName will likely come from the API response.\n// Let's try to get service name from the API response, then fall back.\nconst serviceNameFromApi = apiResponse.appointment?.service || apiResponse.data?.appointment?.service;\n\nconst appointmentDateFromArgs = originalArgs.apptDate; // This is YYYY-MM-DD from Vapi args\nconst appointmentTimeFromArgs = originalArgs.slotTime; // This is HH:MM from Vapi args\nconst doctorIdFromArgs = originalArgs.doctorId || originalArgs.docterId; // Handle potential typo in Vapi spec\n\nconst serviceInfo = serviceNameFromApi ?\n  `'${serviceNameFromApi}'` :\n  (serviceIdFromArgs ? `service ID ${serviceIdFromArgs}` : 'the requested service');\n\nconsole.log(`[Format Booking Response] Preparing response for ToolCallId: ${toolCallId}, Patient: ${patientName}, Service Info: ${serviceInfo}, Date (from args): ${appointmentDateFromArgs}, Time (from args): ${appointmentTimeFromArgs}`);\n\nconst appointmentFromApi = apiResponse.appointment || apiResponse.data?.appointment || {};\nconst statusFromApi = apiResponse.status || (apiResponse.data?.status);\nconst messageFromApi = apiResponse.message || (apiResponse.data?.message) || 'No specific message from booking system.';\n\nlet resultText;\n\nif (statusFromApi && statusFromApi.toString().toLowerCase() === \"success\" && appointmentFromApi && appointmentFromApi.id) {\n  let confirmedDate = appointmentFromApi.appointment_date || appointmentDateFromArgs;\n  let confirmedTime = appointmentFromApi.start_time || appointmentTimeFromArgs;\n  // API response uses gp_id or service_id. Let's check for doctor_id if gp_id isn't present.\n  let confirmedDoctorId = appointmentFromApi.gp_id || appointmentFromApi.doctor_id || doctorIdFromArgs;\n  let confirmationId = appointmentFromApi.id;\n\n  let dateFormattedForUser = confirmedDate;\n  if (confirmedDate && confirmedDate.match(/^\\d{4}-\\d{2}-\\d{2}$/)) {\n    try {\n      dateFormattedForUser = new Date(confirmedDate + 'T00:00:00Z').toLocaleDateString('en-IE', {\n          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'\n      });\n    } catch(e) {\n      console.warn(`[Format Booking Response] Could not format date from API response for success message: \"${confirmedDate}\"`, e);\n    }\n  }\n\n  resultText = `✅ Great news, ${patientName}! Your appointment for ${serviceInfo} is successfully booked!\\nConfirmation ID: ${confirmationId}\\nDoctor ID: ${confirmedDoctorId}\\nDate: ${dateFormattedForUser}\\nTime: ${confirmedTime}\\nA confirmation email will be sent to ${patientEmail}.`;\n  console.log(`[Format Booking Response] Success confirmation generated: ${resultText}`);\n\n} else if (statusFromApi && statusFromApi.toString().toLowerCase() === \"success\") {\n    console.warn('[Format Booking Response] Booking API reported success but was missing expected appointment details in response:', JSON.stringify(apiResponse));\n    let dateFormattedForUser = appointmentDateFromArgs;\n     if (appointmentDateFromArgs && appointmentDateFromArgs.match(/^\\d{4}-\\d{2}-\\d{2}$/)) {\n        try{\n           dateFormattedForUžser = new Date(appointmentDateFromArgs + 'T00:00:00Z').toLocaleDateString('en-IE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });\n        } catch(e) { console.warn(`[Format Booking Response] Could not format date for pending confirmation: \"${appointmentDateFromArgs}\"`, e); }\n    }\n    resultText = `✅ Okay ${patientName}, your appointment request for ${serviceInfo} on ${dateFormattedForUser} at ${appointmentTimeFromArgs} with Doctor ID ${doctorIdFromArgs} has been received. System message: \"${messageFromApi}\". You should receive a confirmation email at ${patientEmail} shortly.`;\n    console.log(`[Format Booking Response] Partial success/pending confirmation generated: ${resultText}`);\n\n} else {\n  console.error(`[Format Booking Response] Booking failed or API returned an error. Status: ${statusFromApi}, Message: ${messageFromApi}, API Response:`, JSON.stringify(apiResponse));\n  resultText = `❌ I'm sorry, ${patientName}, but I encountered an issue while trying to finalise the booking for ${serviceInfo}. Reason: ${messageFromApi || 'the system did not provide a specific reason.'}`;\n  if (apiResponse.errors && Object.keys(apiResponse.errors).length > 0) {\n      try {\n          let errorDetails = Object.entries(apiResponse.errors)\n              .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)\n              .join('; ');\n          resultText += `\\nDetails: ${errorDetails}`;\n      } catch (e) { resultText += '\\n(Additional error details could not be formatted for display)'; }\n  }\n  resultText += '\\nPlease try booking again, perhaps selecting a different time or service, or I can try to help you with something else.';\n  console.log(`[Format Booking Response] Failure/error message generated: ${resultText}`);\n}\n\nresultText = resultText.replace(/\\n\\s+/g, '\\n').trim();\nconsole.log('[Format Booking Response] Final result text for Vapi:', resultText);\n\nreturn {\n  results: [{\n    toolCallId: toolCallId,\n    result: resultText\n  }]\n};\n// --- END OF FUNCTION CODE for Format Booking Response ---"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        220,
+        400
+      ],
+      "id": "56f552b1-9ec3-49ff-a37f-b07e522b08fe",
+      "name": "Format Booking Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        400
+      ],
+      "id": "1db17da1-b3b8-46a4-997b-e50b25dc4ad8",
+      "name": "Booking Confirmation Response"
+    },
+    {
+      "parameters": {
+        "jsCode": "const toolCallId = $json.toolCallId;\nconst che = $node[\"Main Switch\"].json.body.message.toolCalls[0].id\n\n// Debug: Log entire input structure\nconsole.log(\"DEBUG - Full Input Structure:\", JSON.stringify($json, null, 2));\n\n// Try multiple common slot locations\nconst slots = $json.slots || \n             $json.body?.slots || \n             $json.data?.slots || \n             $json.result?.slots || \n             [];\n\n// Debug: Log raw slots data\nconsole.log(\"DEBUG - Raw Slots Data:\", JSON.stringify(slots, null, 2));\n\n// Validate slots array\nif (!Array.isArray(slots)) {\n  console.log(\"DEBUG - Slots is not an array\");\n  return { \n    results: [{ \n      toolCallId, \n      result: \"Invalid slots format received\" \n    }] \n  };\n}\n\n// Handle empty slots case\nif (slots.length === 0) {\n  console.log(\"DEBUG - Empty slots array\");\n  return { \n    results: [{ \n      toolCallId, \n      result: \"No available slots found for the selected date and doctor.\" \n    }] \n  };\n}\n\n// Initialize time categories\nconst timeCategories = {\n  morning: { start: 0, end: 12, slots: [] },\n  afternoon: { start: 12, end: 17, slots: [] },\n  evening: { start: 17, end: 24, slots: [] }\n};\n\n// Categorize slots\nslots.forEach(slot => {\n  const startTime = slot.start_time || slot.startTime || slot.start;\n  if (!startTime) return;\n\n  const [hourStr] = startTime.split(':');\n  const hour = parseInt(hourStr, 10);\n\n  if (hour < timeCategories.morning.end) {\n    timeCategories.morning.slots.push(slot);\n  } else if (hour < timeCategories.afternoon.end) {\n    timeCategories.afternoon.slots.push(slot);\n  } else {\n    timeCategories.evening.slots.push(slot);\n  }\n});\n\n// Format slots with emojis\nconst formatCategory = (category, icon) => {\n  if (category.slots.length === 0) return '';\n  const formatted = category.slots.slice(0, 5).map(slot => {\n    const start = slot.start_time || 'Unknown Start';\n    const end = slot.end_time || 'Unknown End';\n    return `⏰ ${start} - ${end}`;\n  }).join('\\n');\n  return `${icon} ${category.slots.length} slots available:\\n${formatted}\\n\\n`;\n};\n\nlet resultText = '';\nresultText += formatCategory(timeCategories.morning, '🌅 Morning');\nresultText += formatCategory(timeCategories.afternoon, '☀️ Afternoon');\nresultText += formatCategory(timeCategories.evening, '🌙 Evening');\n\n// Handle no slots scenario\nresultText = resultText.trim() || '❌ No available slots found for the selected date and doctor.';\n\n// Add service info\nconst serviceInfo = $json.serviceName ? \n  `for ${$json.serviceName}` : \n  `(Service ID: ${$json.serviceId})`;\n\nconst finalText = `📅 Available slots ${serviceInfo}:\n\n${resultText}`;\n\nreturn {\n  results: [{\n    toolCallId: che,\n    result: finalText\n  }]\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        200
+      ],
+      "id": "9b42b220-34ae-44bf-b1ba-007f00eaf144",
+      "name": "Format Slot Times1"
+    },
+    {
+      "parameters": {
+        "functionCode": "console.log('[Format Doctor List] EXECUTION START - Input from API:', JSON.stringify($json, null, 2));\n\nconst extractDoctorParamsOutput = $node[\"Extract Doctor Query Params\"].json;\nconst toolCallId = extractDoctorParamsOutput.toolCallId || ($node[\"Main Switch\"].json.body.message.toolCalls && $node[\"Main Switch\"].json.body.message.toolCalls[0]?.id) || 'unknown_tool_call_id_in_Format_Doctor_List';\n\nconst response = $json;\nlet allServices = [];\nlet doctorsList = [];\n\n// if (response && response.data) {\n//     const doctors = response.data.doctors;\n//     const services = response.data.services;\n\n//     if (Array.isArray(services)) {\n//         allServices = services;\n//         console.log(`[Format Doctor List] Stored ${allServices.length} services.`);\n//     } else {\n//         console.warn('[Format Doctor List] Services data is not an array or missing.', response.data.services);\n//     }\n\n//     if (Array.isArray(doctors) && Array.isArray(allServices)) {\n//         doctorsList = doctors.map(doctor => {\n//             const doctorServices = allServices.filter(service =>\n//                 service.doctor_id === doctor.id.toString()\n//             );\n\n//             const doctorName = doctor.first_name || `Doctor ID ${doctor.id}`;\n//             let servicesText = \"No specific services listed.\";\n//             if (doctorServices.length > 0) {\n//                  servicesText = doctorServices.map(s => {\n//                     return `${s.title} (Service ID: ${s.id}, Fee: $${s.fee})`; // Added Service ID for clarity\n//                 }).join(', ');\n//             }\n//             return `Dr. ${doctorName} (Doctor ID: ${doctor.id}) - Available Services: ${servicesText}`;\n//         });\n//         console.log(`[Format Doctor List] Processed ${doctorsList.length} doctors.`);\n//     } else {\n//          console.warn('[Format Doctor List] Doctors data is not an array or services not available for mapping.', response.data.doctors);\n//     }\n// } else {\n//     console.warn('[Format Doctor List] API response is missing \\'data\\' field or is malformed.');\n// }\n\n// if (doctorsList.length === 0) {\n//     doctorsList = ['Currently no doctors available. Please try again later.'];\n// }\n\n// // const resultText = `Available doctors:\\n${doctorsList.join('\\n')}`;\n// // console.log(`[Format Doctor List] Final result text: ${resultText}`);\n\n\nreturn {\n    results: [{\n        toolCallId: toolCallId,\n        result:response.data\n    }]\n};"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "5937b13e-2b41-4c8f-abf8-08e54e8e43f6",
+      "name": "doctor_list",
+      "executeOnce": false,
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.primumai.eu/api/get-doctor-first-available-slots",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"doctorId\": {{$json.body.message.toolCallList[0].function.arguments.doctorId }},\n    \"hospital_owner_id\": 1,\n    \"service_id\": {{ $json.body.message.toolCallList[0].function.arguments.serviceId}}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        600
+      ],
+      "id": "b02b990b-353e-4cbc-9e06-466f6860e56f",
+      "name": "next_available_slot"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n    \"results\": [\n        {\n    \n     \n            \"toolCallId\":   \"{{ $('Tool Switch').item.json.body.message.toolCalls[0].id }}\" ,\n            \"result\": {{ $json.slots.length > 0 ? JSON.stringify($json.slots[0]) : '\"no slots available\"' }}\n        }\n    ]\n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        600
+      ],
+      "id": "9f2eb19f-0dd9-427f-9d44-468b67c97df4",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n    \"results\": [\n        {\n            \"toolCallId\": \"{{ $('Tool Switch').item.json.body.message.toolCalls[0].id }}\",\n            \"result\":  {{ JSON.stringify($json.data) }}\n        }\n    ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        820
+      ],
+      "id": "7a561d7f-ea45-45fb-b4f1-cb6040c8749a",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gmscheck.primumai.eu/check_status",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"scheme_id\": \"{{$json.body.message.toolCallList[0].function.arguments.gms_num }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        800
+      ],
+      "id": "8694b2bc-450a-4c5a-8212-4cdc49e0b140",
+      "name": "GMS_Availability"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Main Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Switch": {
+      "main": [
+        [
+          {
+            "node": "Tool Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Switch": {
+      "main": [
+        [
+          {
+            "node": "Extract Doctor Query Params",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Slot Query Params",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Book Appointment API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "next_available_slot",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GMS_Availability",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Doctor Query Params": {
+      "main": [
+        [
+          {
+            "node": "Get Available Doctors API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Doctors API": {
+      "main": [
+        [
+          {
+            "node": "doctor_list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Slot Query Params": {
+      "main": [
+        [
+          {
+            "node": "Get Available Slots API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Slots API": {
+      "main": [
+        [
+          {
+            "node": "Format Slot Times1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Book Appointment API": {
+      "main": [
+        [
+          {
+            "node": "Format Booking Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Booking Response": {
+      "main": [
+        [
+          {
+            "node": "Booking Confirmation Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Slot Times1": {
+      "main": [
+        [
+          {
+            "node": "Available Slots Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "doctor_list": {
+      "main": [
+        [
+          {
+            "node": "Available Doctors Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "next_available_slot": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GMS_Availability": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dd4ca766-833b-4795-8e00-f970ba5f6fb3",
+  "meta": {
+    "instanceId": "0ab6af460a98580e64f222e3c942c33d369729f7ed1bcd360ebaff4734691686"
+  },
+  "id": "nmlz4C8onGtpqbf2",
+  "tags": []
+}
