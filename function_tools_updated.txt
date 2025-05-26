@@ -7,13 +7,13 @@ Parameters - None
 2. Tool Name - book_appointment
 Description - This function will called in final step of booking confirmation with mandatory dates.
 Parameters ->
-i.   Name - email,     Type - string
-ii.  Name - apptDate,  Type - string
-iii. Name - docterId,  Type - number
-iv.  Name - lastName,  Type - string
-v.   Name - slotTime,  Type - string
-vi.  Name - firstName, Type - string
-vii. Name - serviceId, Type - number
+i.   Name - email,     Type - string, Description - None
+ii.  Name - apptDate,  Type - string, Description - None
+iii. Name - docterId,  Type - number, Description - None
+iv.  Name - lastName,  Type - string, Description - None
+v.   Name - slotTime,  Type - string, Description - None
+vi.  Name - firstName, Type - string, Description - None
+vii. Name - serviceId, Type - number, Description - None
 Required - email, apptDate, docterId, lastName, slotTime, firstName, serviceId
 
 3. Tool Name - get_available_slots
@@ -27,8 +27,8 @@ Required - apptDate, docterId, serviceId
 4. Tool Name - next_available_slot
 Description - Call this function when user selects next available slots
 Parameters ->
-i.  Name - docterId,  Type - number
-ii. Name - serviceId, Type - number
+i.  Name - docterId,  Type - number, Description - None
+ii. Name - serviceId, Type - number, Description - None
 
 5. Tool Name - check_gms
 Description - Call this function when user have their GMS number
